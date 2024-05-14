@@ -1,40 +1,87 @@
-# Project Title
+# Solidity Smart Contract: Understanding require(), assert(), and revert()
 
-Simple overview of use/purpose.
+A basic Solidity smart contract that shows how to use the require(), assert(), and revert() statements can be found in this repository. In the creation of smart contracts, these assertions are crucial for managing special situations, verifying internal state, and imposing preconditions.
 
-## Description
+# Requirements
 
-An in-depth paragraph about your project and overview of use.
+In order to communicate with the smart contract, you must:
+
+An Ethereum smart contract development environment (such as Remix, Truffle, Hardhat)
+An Ethereum wallet or client (e.g., MetaMask) to deploy and interact with the contract on a testnet or mainnet
 
 ## Getting Started
 
 ### Installing
+To clone this repository locally, go to: https
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+Open the project directory by going to cd solidity-assertions.
+
+In the Solidity development environment of your choice, open the RequireAssertRevert.sol file.
+
+Put the smart contract together.
+
+Install the smart contract on the Ethereum network of your choice (mainnet or testnet).
+
+Use the supplied functions to communicate with the deployed contract, such as setNumber().
+
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+
 ```
 code blocks for commands
-```
+pragma solidity ^0.8.0;
 
-## Help
+contract Alber {
+    address public owner;
+    uint256 public value;
+    uint256 public constant MAX_VALUE = 1000;
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function increaseValue(uint256 _amount) external {
+        require(msg.sender == owner, "Only the owner can increase the value");
+        
+        // Ensure that the new value doesn't exceed the maximum value
+        uint256 newValue = value + _amount;
+        require(newValue <= MAX_VALUE, "Value cannot exceed the maximum limit");
+        
+        value = newValue;
+    }
+
+    function decreaseValue(uint256 _amount) external {
+        require(msg.sender == owner, "Only the owner can decrease the value");
+        
+        // Ensure that the value doesn't go below zero
+        require(value >= _amount, "Value cannot be decreased below zero");
+        
+        value -= _amount;
+    }
+
+    function transferOwnership(address _newOwner) external {
+        require(msg.sender == owner, "Only the owner can transfer ownership");
+        require(_newOwner != address(0), "Invalid new owner address");
+        
+        owner = _newOwner;
+    }
+}
+
+
+
 
 ## Authors
 
-Contributors names and contact info
 
-ex. Alber C Aquino
-ex. [@DomPizzie](https://twitter.com/dompizzie)
 
+. Alber C Aquino  
+. https://www.facebook.com/DBGTK
+
+
+## License
+
+This project is licensed under the [SPDX-MIT] License - see the LICENSE.md file for details
 
 ## License
 
